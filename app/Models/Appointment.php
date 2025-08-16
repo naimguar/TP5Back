@@ -4,15 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Appointment extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'client_id',    
         'appointment_date',
@@ -22,6 +18,6 @@ class Appointment extends Model
 
     public function client()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Client::class);
     }
 }
