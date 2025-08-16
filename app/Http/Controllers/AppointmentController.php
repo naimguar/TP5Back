@@ -14,7 +14,16 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::with('client')->get();
+        $appointments = Appointment::with('client')
+            ->orderByRaw("
+                CASE 
+                    WHEN status = 'completed' THEN 1 
+                    ELSE 0 
+                END ASC
+            ")
+            ->orderBy('appointment_date', 'ASC')
+            ->get();
+
         return response()->json($appointments);
     }
 
